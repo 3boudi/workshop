@@ -103,3 +103,22 @@ svg {
 ::-webkit-scrollbar-thumb:hover {
   background: #14451F;
 }
+
+/* Suppress Netlify injected badge / drawer */
+netlify-badge,
+#netlify-badge,
+.netlify-badge,
+iframe[src*="netlify"],
+[data-netlify-badge],
+div[class*="netlify-badge"],
+div[id*="netlify-badge"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  clip-path: inset(100%) !important;
+  clip: rect(0 0 0 0) !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
