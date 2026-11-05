@@ -6,13 +6,22 @@ import './index.css';
 // Remove injected Netlify badge if present
 const cleanNetlifyBadge = () => {
   const elements = document.querySelectorAll(
-    'netlify-badge, #netlify-badge, .netlify-badge, iframe[src*="netlify"], [data-netlify-badge]'
+    'iframe, fi-badge, netlify-badge, #netlify-badge, .netlify-badge, [data-netlify-badge]'
   );
-  elements.forEach((el) => el.remove());
+  elements.forEach((el) => {
+    (el as HTMLElement).style?.setProperty('display', 'none', 'important');
+    (el as HTMLElement).style?.setProperty('visibility', 'hidden', 'important');
+    try {
+      el.remove();
+    } catch (_) {}
+  });
 
   document.querySelectorAll('*').forEach((el) => {
-    if (el.tagName.toLowerCase().includes('netlify')) {
-      el.remove();
+    const tag = el.tagName.toLowerCase();
+    if (tag.includes('netlify') || tag === 'fi-badge') {
+      try {
+        el.remove();
+      } catch (_) {}
     }
   });
 };

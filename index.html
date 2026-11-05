@@ -9,6 +9,50 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+      /* Instantly suppress and hide any injected iframe or Netlify badge */
+      iframe,
+      iframe[style],
+      body > iframe,
+      netlify-badge,
+      fi-badge,
+      [id*="netlify"],
+      [class*="netlify-badge"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        max-width: 0 !important;
+        max-height: 0 !important;
+        position: fixed !important;
+        top: -99999px !important;
+        left: -99999px !important;
+        z-index: -9999999 !important;
+        clip: rect(0 0 0 0) !important;
+        clip-path: inset(100%) !important;
+        border: 0 !important;
+      }
+    </style>
+    <script>
+      (function() {
+        function removeBadges() {
+          var frames = document.querySelectorAll('iframe, netlify-badge, fi-badge');
+          for (var i = 0; i < frames.length; i++) {
+            frames[i].style.setProperty('display', 'none', 'important');
+            frames[i].style.setProperty('visibility', 'hidden', 'important');
+            try { frames[i].remove(); } catch(e) {}
+          }
+        }
+        if (window.MutationObserver) {
+          new MutationObserver(removeBadges).observe(document.documentElement, { childList: true, subtree: true });
+        }
+        window.addEventListener('DOMContentLoaded', removeBadges);
+        window.addEventListener('load', removeBadges);
+        removeBadges();
+      })();
+    </script>
   </head>
   <body class="bg-white text-forest min-h-screen selection:bg-neon selection:text-forest">
     <div id="root"></div>
