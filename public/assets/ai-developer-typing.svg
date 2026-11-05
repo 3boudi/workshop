@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="100%" height="100%" style="background: transparent; overflow: visible;">
+  <defs>
+    <!-- Clip path for Back Monitor Screen -->
+    <clipPath id="backScreenClip">
+      <rect x="315" y="198" width="166" height="156" rx="4"></rect>
+    </clipPath>
+
+    <!-- Clip path for Front Left Angled Monitor Screen -->
+    <clipPath id="frontScreenClip">
+      <polygon points="109,144 307,183 310,368 117,390"></polygon>
+    </clipPath>
+
+    <!-- Clip path for Clean Face Jawline Cel-Shading -->
+    <clipPath id="faceShapeClip">
+      <path d="M 455 128 C 450 158, 452 192, 464 218 C 475 242, 500 248, 524 236 C 548 224, 566 196, 566 158 C 564 122, 532 105, 455 128 Z"></path>
+    </clipPath>
+
+    <!-- Subtle Screen Glow Gradients -->
+    <linearGradient id="screenDarkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a381c"></stop>
+      <stop offset="100%" stop-color="#14532d"></stop>
+    </linearGradient>
+
+    <linearGradient id="hoodieGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"></stop>
+      <stop offset="55%" stop-color="#16a34a"></stop>
+      <stop offset="100%" stop-color="#15803d"></stop>
+    </linearGradient>
+
+    <linearGradient id="screenBeamGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#4ade80" stop-opacity="0.18"></stop>
+      <stop offset="100%" stop-color="#4ade80" stop-opacity="0"></stop>
+    </linearGradient>
+  </defs>
+
+  <style>
+    :root {
+      --spd: 1;
+    }
+
+    /* Hardware-acceleration for all animated nodes */
+    .anim-head, .anim-torso, .anim-eye,
+    .anim-left-arm, .anim-left-f1, .anim-left-f2,
+    .anim-right-arm, .anim-right-wrist,
+    .anim-f-index, .anim-f-middle, .anim-f-pinky,
+    .ui-card-float, .sun-pulse, .cursor-blink,
+    .spark-1, .spark-2 {
+      will-change: transform, opacity;
+      transform-box: fill-box;
+      backface-visibility: hidden;
+    }
+
+    /* Rhythmic Head & Upper Body Coding Groove */
+    @keyframes headGroove {
+      0%, 100% { transform: translate3d(0px, 0px, 0) rotate(0deg); }
+      50% { transform: translate3d(-2px, 3.5px, 0) rotate(-1.1deg); }
+    }
+
+    @keyframes torsoBreathe {
+      0%, 100% { transform: translate3d(0px, 0px, 0) rotate(0deg); }
+      50% { transform: translate3d(-1px, 2px, 0) rotate(-0.4deg); }
+    }
+
+    /* Natural Eye Blinking */
+    @keyframes eyeBlink {
+      0%, 44%, 48%, 94%, 98%, 100% { transform: scale3d(1, 1, 1); }
+      46%, 96% { transform: scale3d(1, 0.08, 1); }
+    }
+
+    /* Left (Back) Arm & Hand Rapid Typing */
+    @keyframes typeLeftArm {
+      0%, 100% { transform: rotate(0deg) translate3d(0px, 0px, 0); }
+      50% { transform: rotate(-1.5deg) translate3d(0px, -1px, 0); }
+    }
+
+    @keyframes tapLeftFinger1 {
+      0%, 100% { transform: rotate(0deg) translate3d(0px, 0px, 0); }
+      50% { transform: rotate(-6deg) translate3d(0px, -2px, 0); }
+    }
+
+    @keyframes tapLeftFinger2 {
+      0%, 100% { transform: rotate(0deg) translate3d(0px, 0px, 0); }
+      50% { transform: rotate(-5deg) translate3d(0px, -1.5px, 0); }
+    }
+
+    /* Right (Foreground) Arm, Hand & Articulated Fingers Rapid Typing */
+    @keyframes typeRightArm {
+      0%, 100% { transform: rotate(0deg) translate3d(0px, 0px, 0); }
+      50% { transform: rotate(1.2deg) translate3d(-1px, 1px, 0); }
+    }
+
+    @keyframes typeRightWrist {
+      0%, 100% { transform: rotate(0deg) translate3d(0px, 0px, 0); }
+      50% { transform: rotate(-2.5deg) translate3d(0px, -1.5px, 0); }
+    }
+
+    @keyframes tapIndexFinger {
+      0%, 100% { transform: rotate(0deg) translate3d(0px, 0px, 0); }
+      40% { transform: rotate(-7deg) translate3d(0px, -2px, 0); }
+      80% { transform: rotate(2deg) translate3d(0px, 1px, 0); }
+    }
+
+    @keyframes tapMiddleFinger {
+      0%, 100% { transform: rotate(0deg) translate3d(0px, 0px, 0); }
+      45% { transform: rotate(-6deg) translate3d(0px, -2px, 0); }
+      85% { transform: rotate(2deg) translate3d(0px, 1px, 0); }
+    }
+
+    @keyframes tapPinkyFinger {
+      0%, 100% { transform: rotate(0deg) translate3d(0px, 0px, 0); }
+      55% { transform: rotate(-6deg) translate3d(0px, -2px, 0); }
+      90% { transform: rotate(2deg) translate3d(0px, 1px, 0); }
+    }
+
+    /* Keycap Flash Animations (Smooth opacity pulse instead of fill repaints) */
+    @keyframes keyFlashA {
+      0%, 75%, 100% { opacity: 0.9; }
+      35%, 55% { opacity: 1; }
+    }
+    @keyframes keyFlashB {
+      0%, 30%, 100% { opacity: 0.85; }
+      60%, 85% { opacity: 1; }
+    }
+    @keyframes keyFlashC {
+      0%, 50%, 100% { opacity: 0.9; }
+      15%, 35% { opacity: 1; }
+    }
+
+    /* Typing Sparks Pop */
+    @keyframes sparkPop1 {
+      0%, 60%, 100% { opacity: 0; transform: translate3d(0, 2px, 0) scale3d(0.6, 0.6, 1); }
+      20%, 45% { opacity: 1; transform: translate3d(0, -6px, 0) scale3d(1.1, 1.1, 1); }
+    }
+    @keyframes sparkPop2 {
+      0%, 30%, 90%, 100% { opacity: 0; transform: translate3d(0, 2px, 0) scale3d(0.6, 0.6, 1); }
+      50%, 75% { opacity: 1; transform: translate3d(0, -7px, 0) scale3d(1.15, 1.15, 1); }
+    }
+
+    /* Code Typing Width / Reveal on Back Monitor */
+    @keyframes codeLineType1 {
+      0%, 10% { stroke-dashoffset: 120; }
+      45%, 90% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 120; }
+    }
+    @keyframes codeLineType2 {
+      0%, 25% { stroke-dashoffset: 110; }
+      60%, 92% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 110; }
+    }
+    @keyframes codeLineType3 {
+      0%, 40% { stroke-dashoffset: 130; }
+      78%, 95% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 130; }
+    }
+    @keyframes cursorBlink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    /* Left Monitor UI Live Build Pulse */
+    @keyframes uiCardPulse {
+      0%, 100% { transform: translate3d(0, 0px, 0); }
+      50% { transform: translate3d(0, -3px, 0); }
+    }
+    @keyframes mountainSunGlow {
+      0%, 100% { opacity: 0.9; transform: scale3d(1, 1, 1); }
+      50% { opacity: 1; transform: scale3d(1.06, 1.06, 1); }
+    }
+
+    /* Applying Animations with Speed Variable and Percentage-Based Anchors */
+    .anim-head {
+      animation: headGroove calc(0.65s / var(--spd)) ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: 53% 87%;
+    }
+    .anim-torso {
+      animation: torsoBreathe calc(0.65s / var(--spd)) ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: 40% 90%;
+    }
+    .anim-eye {
+      animation: eyeBlink 4.2s ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: center center;
+    }
+    .anim-left-arm {
+      animation: typeLeftArm calc(0.24s / var(--spd)) ease-in-out infinite alternate;
+      transform-box: fill-box;
+      transform-origin: 90% 20%;
+    }
+    .anim-left-f1 {
+      animation: tapLeftFinger1 calc(0.16s / var(--spd)) ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: 92% 35%;
+    }
+    .anim-left-f2 {
+      animation: tapLeftFinger2 calc(0.19s / var(--spd)) ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: 92% 35%;
+    }
+    .anim-right-arm {
+      animation: typeRightArm calc(0.28s / var(--spd)) ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: 90% 15%;
+    }
+    .anim-right-wrist {
+      animation: typeRightWrist calc(0.18s / var(--spd)) ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: 95% 15%;
+    }
+    .anim-f-index {
+      animation: tapIndexFinger calc(0.15s / var(--spd)) ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: 92% 25%;
+    }
+    .anim-f-middle {
+      animation: tapMiddleFinger calc(0.17s / var(--spd)) ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: 92% 25%;
+    }
+    .anim-f-pinky {
+      animation: tapPinkyFinger calc(0.21s / var(--spd)) ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: 92% 25%;
+    }
+    .key-a { animation: keyFlashA calc(0.32s / var(--spd)) infinite; }
+    .key-b { animation: keyFlashB calc(0.27s / var(--spd)) infinite; }
+    .key-c { animation: keyFlashC calc(0.41s / var(--spd)) infinite; }
+    .spark-1 { animation: sparkPop1 calc(0.36s / var(--spd)) ease-out infinite; transform-box: fill-box; transform-origin: center center; }
+    .spark-2 { animation: sparkPop2 calc(0.42s / var(--spd)) ease-out infinite; transform-box: fill-box; transform-origin: center center; }
+    .code-type-1 {
+      stroke-dasharray: 120;
+      animation: codeLineType1 calc(2.4s / var(--spd)) linear infinite;
+    }
+    .code-type-2 {
+      stroke-dasharray: 110;
+      animation: codeLineType2 calc(2.4s / var(--spd)) linear infinite;
+    }
+    .code-type-3 {
+      stroke-dasharray: 130;
+      animation: codeLineType3 calc(2.4s / var(--spd)) linear infinite;
+    }
+    .cursor-blink {
+      animation: cursorBlink 0.6s steps(2, start) infinite;
+    }
+    .ui-card-float {
+      animation: uiCardPulse calc(1.8s / var(--spd)) ease-in-out infinite;
+    }
+    .sun-pulse {
+      animation: mountainSunGlow 2s ease-in-out infinite;
+    }
+    @keyframes burstFloatAnim {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(0.8deg); }
+    }
+    @keyframes burstPulseAnim {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+    .burst-float {
+      animation: burstFloatAnim calc(4.6s / var(--spd)) ease-in-out infinite;
+      will-change: transform;
+      transform-box: fill-box;
+      transform-origin: center bottom;
+    }
+    .burst-pulse {
+      animation: burstPulseAnim calc(3.6s / var(--spd)) ease-in-out infinite;
+      will-change: transform;
+      transform-box: fill-box;
+      transform-origin: center center;
+    }
+  </style>
+
+  <!-- ===================================================================== -->
+  <!-- UPWARD GROWTH ARROWS LAYER (Clean & Clutter-Free)                     -->
+  <!-- ===================================================================== -->
+  <g id="layerGrowthArrows">
+    <!-- Giant Central Green Upward Growth Arrow -->
+    <g class="burst-float">
+      <path d="M 445 220 L 445 75 L 424 75 L 465 14 L 506 75 L 485 75 L 485 220 Z" fill="#76FF03" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></path>
+      <line x1="465" y1="22" x2="465" y2="210" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.75"></line>
+    </g>
+
+    <!-- Secondary Upward Growth Arrow (Top-Right) -->
+    <g class="burst-float">
+      <path d="M 610 200 L 665 75 L 646 66 L 712 28 L 718 102 L 699 94 L 648 215 Z" fill="#76FF03" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></path>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 1. PERSPECTIVE DESK LINES                                             -->
+  <!-- ===================================================================== -->
+  <g id="deskStructure">
+    <!-- Upper/Back Desk Perspective Line behind left monitor -->
+    <line x1="78" y1="436" x2="292" y2="386" stroke="#072a16" stroke-width="4.5" stroke-linecap="round"></line>
+
+    <!-- Foreground Angled Desk Edge (Double-lined 3D edge) -->
+    <polygon points="132,598 415,436 426,444 152,605" fill="#bbf7d0" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></polygon>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 2. BACK / RIGHT MONITOR (IDE & Live Typing Code)                      -->
+  <!-- ===================================================================== -->
+  <g id="backMonitor">
+    <!-- Monitor Stand Neck & Base -->
+    <polygon points="384,362 414,362 420,398 378,398" fill="#15803d" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></polygon>
+    <!-- Stand highlight -->
+    <polygon points="386,364 396,364 394,396 380,396" fill="#4ade80" opacity="0.5"></polygon>
+    <!-- Flat Base -->
+    <path d="M 350 400 C 350 393, 445 393, 445 400 L 448 406 C 448 410, 348 410, 348 406 Z" fill="#16a34a" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></path>
+
+    <!-- Monitor Outer 3D Shell / Bezel -->
+    <rect x="300" y="176" width="194" height="190" rx="10" fill="#0d4722" stroke="#072a16" stroke-width="5"></rect>
+    <rect x="305" y="180" width="186" height="182" rx="8" fill="#16a34a" stroke="#072a16" stroke-width="4"></rect>
+
+    <!-- Top Editor Title Bar -->
+    <rect x="313" y="186" width="170" height="12" rx="3" fill="#86efac" stroke="#072a16" stroke-width="2.5"></rect>
+    <circle cx="321" cy="192" r="2.2" fill="#072a16"></circle>
+    <circle cx="328" cy="192" r="2.2" fill="#072a16"></circle>
+    <circle cx="335" cy="192" r="2.2" fill="#072a16"></circle>
+
+    <!-- Dark Green Code Screen -->
+    <rect x="315" y="198" width="166" height="156" rx="4" fill="url(#screenDarkGrad)" stroke="#072a16" stroke-width="3.5"></rect>
+
+    <!-- Animated Code Lines inside Back Monitor -->
+    <g clip-path="url(#backScreenClip)">
+      <!-- Subtle Line Numbers Gutter -->
+      <line x1="324" y1="205" x2="324" y2="348" stroke="#22c55e" stroke-width="2" stroke-dasharray="2 6" opacity="0.5"></line>
+
+      <!-- Static/Base Code Structure -->
+      <line x1="333" y1="210" x2="378" y2="210" stroke="#86efac" stroke-width="3.5" stroke-linecap="round"></line>
+      <line x1="386" y1="210" x2="415" y2="210" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round"></line>
+
+      <line x1="342" y1="220" x2="425" y2="220" stroke="#22c55e" stroke-width="3" stroke-linecap="round"></line>
+      <line x1="342" y1="228" x2="395" y2="228" stroke="#86efac" stroke-width="3" stroke-linecap="round"></line>
+      <line x1="403" y1="228" x2="442" y2="228" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.85"></line>
+
+      <line x1="352" y1="238" x2="412" y2="238" stroke="#4ade80" stroke-width="3" stroke-linecap="round"></line>
+      <line x1="352" y1="246" x2="455" y2="246" stroke="#22c55e" stroke-width="3" stroke-linecap="round"></line>
+      <line x1="342" y1="255" x2="380" y2="255" stroke="#86efac" stroke-width="3" stroke-linecap="round"></line>
+
+      <!-- Actively Typing Code Block 1 -->
+      <line x1="333" y1="268" x2="445" y2="268" stroke="#4ade80" stroke-width="4" stroke-linecap="round" class="code-type-1"></line>
+      <line x1="345" y1="278" x2="438" y2="278" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" class="code-type-2"></line>
+      <line x1="345" y1="288" x2="462" y2="288" stroke="#86efac" stroke-width="3.5" stroke-linecap="round" class="code-type-3"></line>
+
+      <!-- Lower Code Block -->
+      <line x1="333" y1="302" x2="365" y2="302" stroke="#4ade80" stroke-width="3" stroke-linecap="round"></line>
+      <line x1="344" y1="312" x2="428" y2="312" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round"></line>
+      <line x1="344" y1="322" x2="405" y2="322" stroke="#22c55e" stroke-width="3" stroke-linecap="round"></line>
+      <line x1="333" y1="332" x2="448" y2="332" stroke="#86efac" stroke-width="3.5" stroke-linecap="round" class="code-type-2"></line>
+
+      <!-- Blinking Neon Cursor -->
+      <rect x="454" y="328" width="7" height="8" fill="#4ade80" class="cursor-blink"></rect>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 3. FRONT LEFT 3D ANGLED MONITOR (Split IDE + Web UI Preview)          -->
+  <!-- ===================================================================== -->
+  <g id="frontLeftMonitor">
+    <!-- Monitor Stand Base & Neck -->
+    <polygon points="215,382 248,382 252,424 212,424" fill="#0d4722" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></polygon>
+    <!-- 3D Angled Stand Foot -->
+    <polygon points="175,428 252,414 282,424 202,444" fill="#16a34a" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></polygon>
+    <polygon points="175,428 202,444 202,451 175,435" fill="#0d4722" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></polygon>
+    <polygon points="202,444 282,424 282,431 202,451" fill="#15803d" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></polygon>
+
+    <!-- 3D Left Side Bezel Depth -->
+    <polygon points="88,120 103,115 114,405 98,412" fill="#0d4722" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></polygon>
+    <!-- 3D Bottom Bezel Depth -->
+    <polygon points="98,412 114,405 325,376 314,384" fill="#0d4722" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></polygon>
+
+    <!-- Main Front Angled Bezel Face -->
+    <polygon points="103,115 318,162 325,376 114,405" fill="#15803d" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></polygon>
+
+    <!-- Inner Screen Frame -->
+    <polygon points="109,130 309,172 314,368 117,392" fill="#0a381c" stroke="#072a16" stroke-width="4" stroke-linejoin="round"></polygon>
+
+    <!-- Top Window Bar (Perspective) -->
+    <polygon points="109,130 309,172 309,184 109,144" fill="#86efac" stroke="#072a16" stroke-width="3.5" stroke-linejoin="round"></polygon>
+    <circle cx="118" cy="138" r="2.5" fill="#072a16"></circle>
+    <circle cx="126" cy="140" r="2.5" fill="#072a16"></circle>
+    <circle cx="134" cy="141.5" r="2.5" fill="#072a16"></circle>
+
+    <!-- Left Sidebar File Tree (Dark Green) -->
+    <polygon points="109,144 166,156 172,384 117,392" fill="#0d4722" stroke="#072a16" stroke-width="3"></polygon>
+    <!-- Sidebar Tree Lines -->
+    <line x1="118" y1="162" x2="152" y2="168" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round"></line>
+    <line x1="122" y1="175" x2="156" y2="181" stroke="#22c55e" stroke-width="3" stroke-linecap="round"></line>
+    <line x1="122" y1="187" x2="148" y2="192" stroke="#86efac" stroke-width="3" stroke-linecap="round"></line>
+    <line x1="118" y1="202" x2="155" y2="208" stroke="#22c55e" stroke-width="3" stroke-linecap="round"></line>
+    <line x1="124" y1="216" x2="154" y2="221" stroke="#4ade80" stroke-width="3" stroke-linecap="round"></line>
+    <line x1="124" y1="230" x2="146" y2="234" stroke="#86efac" stroke-width="3" stroke-linecap="round"></line>
+    <line x1="119" y1="246" x2="152" y2="251" stroke="#22c55e" stroke-width="3" stroke-linecap="round"></line>
+    <line x1="124" y1="262" x2="158" y2="267" stroke="#4ade80" stroke-width="3" stroke-linecap="round"></line>
+    <line x1="124" y1="278" x2="150" y2="282" stroke="#22c55e" stroke-width="3" stroke-linecap="round"></line>
+    <line x1="120" y1="296" x2="156" y2="300" stroke="#86efac" stroke-width="3" stroke-linecap="round"></line>
+    <line x1="124" y1="314" x2="152" y2="318" stroke="#4ade80" stroke-width="3" stroke-linecap="round"></line>
+    <line x1="120" y1="334" x2="154" y2="338" stroke="#22c55e" stroke-width="3" stroke-linecap="round"></line>
+    <line x1="120" y1="354" x2="148" y2="356" stroke="#86efac" stroke-width="3" stroke-linecap="round"></line>
+
+    <!-- Main White Web Application Preview Card (Perspective) -->
+    <polygon points="168,168 304,193 306,298 171,292" fill="#ffffff" stroke="#072a16" stroke-width="4" stroke-linejoin="round"></polygon>
+
+    <!-- Framed Mountain & Sun Icon inside White Card (Exact match to reference!) -->
+    <g>
+      <polygon points="179,184 233,193 234,254 180,250" fill="#4ade80" stroke="#072a16" stroke-width="3.5" stroke-linejoin="round"></polygon>
+      <!-- Sun Circle -->
+      <circle cx="218" cy="206" r="5.5" fill="#16a34a" stroke="#072a16" stroke-width="2.5" class="sun-pulse"></circle>
+      <!-- Mountains -->
+      <polygon points="180,250 198,216 218,252" fill="#16a34a" stroke="#072a16" stroke-width="3" stroke-linejoin="round"></polygon>
+      <polygon points="206,251 221,226 234,254" fill="#22c55e" stroke="#072a16" stroke-width="3" stroke-linejoin="round"></polygon>
+    </g>
+
+    <!-- UI Content Lines to the right of the Mountain Icon -->
+    <line x1="244" y1="198" x2="294" y2="206" stroke="#4ade80" stroke-width="4" stroke-linecap="round"></line>
+    <line x1="244" y1="210" x2="288" y2="217" stroke="#86efac" stroke-width="3.5" stroke-linecap="round"></line>
+    <line x1="244" y1="220" x2="292" y2="227" stroke="#bbf7d0" stroke-width="3.5" stroke-linecap="round"></line>
+    <line x1="244" y1="234" x2="278" y2="239" stroke="#22c55e" stroke-width="3.5" stroke-linecap="round"></line>
+
+    <!-- Bottom Left Status Lines under White Card -->
+    <line x1="180" y1="308" x2="238" y2="308" stroke="#86efac" stroke-width="4" stroke-linecap="round"></line>
+    <line x1="180" y1="320" x2="228" y2="320" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round"></line>
+    <line x1="180" y1="331" x2="242" y2="330" stroke="#22c55e" stroke-width="3.5" stroke-linecap="round"></line>
+    <line x1="180" y1="342" x2="234" y2="340" stroke="#86efac" stroke-width="3.5" stroke-linecap="round"></line>
+    <line x1="180" y1="353" x2="218" y2="351" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round"></line>
+
+    <!-- Overlapping Secondary Floating UI / Code Modal on Right of Front Monitor -->
+    <g class="ui-card-float">
+      <polygon points="242,256 306,262 308,348 244,352" fill="#ffffff" stroke="#072a16" stroke-width="4" stroke-linejoin="round"></polygon>
+      <!-- Modal Top Header -->
+      <polygon points="242,256 306,262 306,275 242,270" fill="#22c55e" stroke="#072a16" stroke-width="3.5" stroke-linejoin="round"></polygon>
+      <circle cx="249" cy="263" r="2" fill="#072a16"></circle>
+      <circle cx="255" cy="263.5" r="2" fill="#072a16"></circle>
+      <circle cx="261" cy="264" r="2" fill="#072a16"></circle>
+      <!-- Animated UI Bars Inside Modal -->
+      <line x1="252" y1="283" x2="288" y2="286" stroke="#16a34a" stroke-width="4" stroke-linecap="round"></line>
+      <line x1="256" y1="294" x2="296" y2="297" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round"></line>
+      <line x1="256" y1="304" x2="284" y2="306" stroke="#86efac" stroke-width="3.5" stroke-linecap="round"></line>
+      <line x1="252" y1="316" x2="294" y2="318" stroke="#22c55e" stroke-width="3.5" stroke-linecap="round"></line>
+      <line x1="256" y1="327" x2="282" y2="328" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round"></line>
+      <line x1="252" y1="338" x2="274" y2="339" stroke="#16a34a" stroke-width="3.5" stroke-linecap="round"></line>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 4. MECHANICAL KEYBOARD (With Flashing Keycaps & Sparks)               -->
+  <!-- ===================================================================== -->
+  <g id="mechanicalKeyboard">
+    <!-- Keyboard 3D Base -->
+    <polygon points="216,466 368,412 432,434 282,496" fill="#15803d" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></polygon>
+    <!-- Keyboard Front-Left 3D Bevel -->
+    <polygon points="216,466 282,496 282,508 214,476" fill="#0d4722" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></polygon>
+    <!-- Keyboard Front-Right 3D Bevel -->
+    <polygon points="282,496 432,434 432,445 282,508" fill="#072a16" stroke="#072a16" stroke-width="4" stroke-linejoin="round"></polygon>
+
+    <!-- Individual Perspective Keycaps (Flashing in sync with fingers!) -->
+    <g stroke="#072a16" stroke-width="2.5" stroke-linejoin="round">
+      <!-- Row 1 (Upper/Left) -->
+      <polygon points="232,463 252,455 264,461 244,469" fill="#22c55e"></polygon>
+      <polygon points="256,453 276,446 288,452 268,459" class="key-a"></polygon>
+      <polygon points="280,444 300,437 312,443 292,450" fill="#16a34a"></polygon>
+      <polygon points="304,435 324,428 336,434 316,441" class="key-b"></polygon>
+      <polygon points="328,426 348,419 360,425 340,432" class="key-c"></polygon>
+      <polygon points="352,418 368,412 380,418 364,424" fill="#22c55e"></polygon>
+
+      <!-- Row 2 (Middle Home Row - Where fingers tap!) -->
+      <polygon points="248,471 268,463 282,470 262,478" class="key-b"></polygon>
+      <polygon points="272,461 294,453 308,460 286,468" class="key-c"></polygon>
+      <polygon points="298,451 320,443 334,450 312,458" class="key-a"></polygon>
+      <polygon points="324,441 346,433 360,440 338,448" class="key-b"></polygon>
+      <polygon points="350,431 372,423 386,430 364,438" class="key-a"></polygon>
+
+      <!-- Row 3 (Bottom Row + Spacebar) -->
+      <polygon points="266,480 286,472 300,479 280,487" fill="#22c55e"></polygon>
+      <polygon points="290,470 342,450 356,457 304,477" class="key-c"></polygon>
+      <polygon points="346,448 374,437 388,444 360,455" fill="#16a34a"></polygon>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 5. BOY DEVELOPER — BACK LEFT ARM & HAND (Animated Typing)             -->
+  <!-- ===================================================================== -->
+  <g id="developerBackLeftArm" class="anim-left-arm">
+    <!-- Left Hoodie Forearm reaching toward upper keyboard -->
+    <path d="M 495 368 C 462 375, 428 388, 398 398 L 412 432 C 445 424, 478 412, 508 402 Z" fill="#15803d" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></path>
+    <!-- Top Lime Highlight on Left Forearm -->
+    <path d="M 488 370 C 460 377, 430 388, 402 398 L 406 408 C 434 398, 464 388, 492 380 Z" fill="#4ade80"></path>
+    <!-- Dark Sleeve Stripe on Left Forearm -->
+    <polygon points="435,387 450,382 460,416 445,421" fill="#072a16"></polygon>
+    <!-- Cuff of Left Sleeve -->
+    <path d="M 396 396 C 390 404, 394 424, 406 432 L 418 428 C 408 420, 405 404, 410 394 Z" fill="#16a34a" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></path>
+
+    <!-- Left Hand & Tapping Fingers (White with Mint Cel-Shadow) -->
+    <g>
+      <!-- Back Finger 2 (Animated) -->
+      <path class="anim-left-f2" d="M 372 404 C 354 405, 340 414, 336 422 C 334 427, 342 430, 348 426 C 355 420, 365 416, 376 416 Z" fill="#dcfce7" stroke="#072a16" stroke-width="4" stroke-linejoin="round"></path>
+      <!-- Back Index Finger 1 (Animated) -->
+      <path class="anim-left-f1" d="M 398 400 C 378 396, 356 402, 344 415 C 339 421, 347 427, 354 422 C 364 414, 376 412, 392 416 Z" fill="#ffffff" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></path>
+      <!-- Left Thumb tucked below -->
+      <path d="M 382 414 C 370 416, 360 424, 358 430 C 357 435, 366 437, 374 433 C 384 428, 394 426, 402 425 Z" fill="#dcfce7" stroke="#072a16" stroke-width="4" stroke-linejoin="round"></path>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 6. BOY DEVELOPER — SEATED LEGS, TORSO & PUFFY HOODIE                  -->
+  <!-- ===================================================================== -->
+  <!-- Seated Dark Pants / Legs -->
+  <g id="developerLegs">
+    <!-- Upper Leg -->
+    <path d="M 385 565 C 400 520, 455 512, 520 520 L 520 575 L 385 575 Z" fill="#072a16" stroke="#072a16" stroke-width="4"></path>
+    <!-- Foreground Knee & Thigh -->
+    <path d="M 352 598 C 368 552, 435 538, 555 548 L 575 598 Z" fill="#072a16" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></path>
+    <!-- Subtle Pant Fold Highlight -->
+    <path d="M 410 546 C 445 538, 485 540, 520 546" fill="none" stroke="#15803d" stroke-width="3.5" stroke-linecap="round"></path>
+  </g>
+
+  <!-- Torso & Hoodie (Animated Subtle Breathing/Groove) -->
+  <g id="developerTorso" class="anim-torso">
+    <!-- Main Hoodie Body -->
+    <path d="M 520 265 C 492 310, 478 380, 480 465 L 495 555 L 625 568 C 645 480, 658 375, 625 275 Z" fill="url(#hoodieGrad)" stroke="#072a16" stroke-width="5.5" stroke-linejoin="round"></path>
+
+    <!-- Deep Cel-Shaded Folds on Lower Back & Waist -->
+    <path d="M 520 465 C 545 485, 560 525, 555 560 L 625 568 C 638 500, 642 435, 625 380 C 605 420, 565 455, 520 465 Z" fill="#0d4722"></path>
+
+    <!-- Bright Neon Highlight along Back Curve -->
+    <path d="M 615 290 C 636 345, 636 425, 620 495" fill="none" stroke="#4ade80" stroke-width="8" stroke-linecap="round" opacity="0.75"></path>
+
+    <!-- White Hoodie Drawstring on Chest -->
+    <path d="M 518 286 C 504 316, 498 348, 502 368 C 505 376, 514 368, 518 345" fill="#ffffff" stroke="#072a16" stroke-width="4" stroke-linejoin="round"></path>
+
+    <!-- Back Upper Arch of the Puffy Hood (Behind Neck & Earcup) -->
+    <path d="M 558 202 C 596 198, 638 210, 654 236 C 666 256, 660 278, 646 288 L 516 272 Z" fill="#16a34a" stroke="#072a16" stroke-width="5.5" stroke-linejoin="round"></path>
+    <!-- Hood Upper Rim Highlight -->
+    <path d="M 564 206 C 598 203, 634 214, 648 238 C 655 250, 653 264, 642 272 C 624 246, 594 232, 560 230 Z" fill="#22c55e"></path>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 7. BOY DEVELOPER — HEAD, SPIKY HAIR, SMILING FACE & HEADPHONES        -->
+  <!-- ===================================================================== -->
+  <g id="developerHead" class="anim-head">
+    <!-- Clean Anatomical Neck (Tucked smoothly between Jawline & Hoodie Collar) -->
+    <path d="M 515 222 L 508 272 L 574 260 L 564 192 Z" fill="#dcfce7" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></path>
+    <!-- Smooth Curved Under-Jaw Cast Shadow (Hugs underside of jaw with zero gap) -->
+    <path d="M 513 215 L 564 190 L 567 222 C 552 236, 532 245, 511 247 Z" fill="#072a16"></path>
+
+    <!-- Back Hair Tufts (Tucked cleanly behind Headband & Earcup, never overlapping Hood) -->
+    <path d="M 565 84 C 600 88, 618 112, 612 138 C 621 144, 617 158, 602 165 L 584 174 Z" fill="#072a16" stroke="#072a16" stroke-width="4" stroke-linejoin="round"></path>
+
+    <!-- Face Base (3/4 Turned Looking Left/Viewer, Pure White with Mint Cel-Shading) -->
+    <path d="M 455 128 C 450 158, 452 192, 464 218 C 475 242, 500 248, 524 236 C 548 224, 566 196, 566 158 C 564 122, 532 105, 455 128 Z" fill="#ffffff"></path>
+
+    <!-- Mint Cel-Shade along Right Cheek & Jawline (Clipped cleanly to Face Shape) -->
+    <g clip-path="url(#faceShapeClip)">
+      <path d="M 530 128 C 542 166, 532 206, 498 232 C 484 242, 470 242, 460 234 L 535 255 L 575 215 L 572 125 Z" fill="#bbf7d0"></path>
+    </g>
+
+    <!-- Crisp Face Outline Stroke Over Cel-Shading -->
+    <path d="M 455 128 C 450 158, 452 192, 464 218 C 475 242, 500 248, 524 236 C 548 224, 566 196, 566 158 C 564 122, 532 105, 455 128 Z" fill="none" stroke="#072a16" stroke-width="5.5" stroke-linejoin="round"></path>
+
+    <!-- Expressive Eyebrows -->
+    <path d="M 456 146 C 462 138, 472 138, 478 143" fill="none" stroke="#072a16" stroke-width="4.5" stroke-linecap="round"></path>
+    <path d="M 494 142 C 504 134, 520 135, 528 144" fill="none" stroke="#072a16" stroke-width="5" stroke-linecap="round"></path>
+
+    <!-- Eyes (With Periodic Blink Animation) -->
+    <g class="anim-eye">
+      <!-- Left Eye -->
+      <ellipse cx="468" cy="162" rx="4.8" ry="8.5" fill="#072a16"></ellipse>
+      <circle cx="466.5" cy="158.5" r="2" fill="#ffffff"></circle>
+      <!-- Right Eye -->
+      <ellipse cx="506" cy="162" rx="5.5" ry="9.5" fill="#072a16"></ellipse>
+      <circle cx="504.5" cy="158" r="2.3" fill="#ffffff"></circle>
+    </g>
+
+    <!-- Cute Angled Nose & Cheek Line -->
+    <path d="M 480 165 C 474 175, 472 183, 475 188 C 478 191, 484 190, 488 188" fill="none" stroke="#072a16" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"></path>
+
+    <!-- Big Cheerful Open Smile (Exact match to reference!) -->
+    <path d="M 474 202 C 486 203, 504 198, 516 190 C 519 208, 509 224, 492 225 C 478 225, 472 214, 474 202 Z" fill="#072a16" stroke="#072a16" stroke-width="4" stroke-linejoin="round"></path>
+    <!-- Upper White Teeth Row -->
+    <path d="M 476 202 C 488 203, 503 199, 514 192 C 514 198, 511 203, 504 205 C 492 208, 481 207, 476 202 Z" fill="#ffffff"></path>
+    <!-- Green-Tinted Tongue Highlight -->
+    <path d="M 483 218 C 490 212, 502 212, 508 217 C 503 223, 491 225, 483 218 Z" fill="#4ade80"></path>
+
+    <!-- Spiky Swept-Forward Dark Forest Hair (Signature Silhouette!) -->
+    <path d="M 452 152 
+             C 440 144, 438 126, 448 116
+             C 430 112, 418 96, 424 80
+             C 434 92, 450 94, 462 90
+             C 454 76, 456 58, 468 48
+             C 476 62, 492 68, 506 66
+             C 502 54, 512 42, 526 42
+             C 532 54, 548 62, 566 66
+             C 596 72, 616 98, 614 134
+             L 562 155
+             C 555 128, 538 118, 518 124
+             C 502 128, 482 128, 462 118
+             C 458 130, 456 142, 452 152 Z" fill="#072a16" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></path>
+
+    <!-- Subtle Hair Crown Highlight -->
+    <path d="M 472 62 C 486 74, 510 78, 532 74" fill="none" stroke="#15803d" stroke-width="4" stroke-linecap="round"></path>
+
+    <!-- Over-Ear Lime Green Headphones -->
+    <g id="headphones">
+      <!-- Double-Arch Headband over Hair -->
+      <path d="M 512 58 C 556 54, 594 88, 596 146 L 576 150 C 574 98, 542 68, 502 68 Z" fill="#4ade80" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></path>
+      <path d="M 524 62 C 560 64, 586 94, 588 146" fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round"></path>
+
+      <!-- Outer Cushion Ring -->
+      <ellipse cx="578" cy="172" rx="24" ry="32" transform="rotate(-8 578 172)" fill="#4ade80" stroke="#072a16" stroke-width="5"></ellipse>
+      <!-- Outer Shell -->
+      <ellipse cx="583" cy="173" rx="18" ry="25" transform="rotate(-8 583 173)" fill="#22c55e" stroke="#072a16" stroke-width="4.5"></ellipse>
+      <!-- Inner Center Cap -->
+      <ellipse cx="585" cy="173" rx="10" ry="15" transform="rotate(-8 585 173)" fill="#4ade80" stroke="#072a16" stroke-width="3.5"></ellipse>
+    </g>
+
+    <!-- Front Overlapping Hoodie Collar & Fold (Wraps smoothly over base of neck) -->
+    <path d="M 498 258 C 516 258, 552 246, 572 224 C 606 222, 642 238, 654 268 C 638 302, 574 300, 510 282 Z" fill="#16a34a" stroke="#072a16" stroke-width="5.5" stroke-linejoin="round"></path>
+    <!-- Front Collar Highlight & Inner Seam -->
+    <path d="M 516 266 C 556 244, 610 246, 642 272" fill="none" stroke="#072a16" stroke-width="4.5" stroke-linecap="round"></path>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 8. FOREGROUND RIGHT ARM, SLEEVE STRIPE & ARTICULATED TYPING HAND      -->
+  <!-- ===================================================================== -->
+  <g id="developerForegroundRightArm" class="anim-right-arm">
+    <!-- Hoodie Shoulder & Forearm Reaching to Keyboard -->
+    <path d="M 552 292 
+             C 525 302, 504 338, 485 385 
+             L 382 426 
+             C 374 442, 378 466, 392 476 
+             L 512 482 
+             C 535 480, 552 458, 566 415 
+             C 582 365, 588 312, 552 292 Z" fill="#16a34a" stroke="#072a16" stroke-width="5.5" stroke-linejoin="round"></path>
+
+    <!-- Neon Lime Top Highlight along Shoulder & Forearm -->
+    <path d="M 546 298 C 522 312, 504 348, 488 390 L 392 428 L 396 440 L 496 402 C 514 360, 532 322, 556 308 Z" fill="#4ade80"></path>
+
+    <!-- Deep Shadow on Underside of Forearm -->
+    <path d="M 392 464 L 508 470 C 528 468, 544 450, 556 412 L 542 405 C 530 438, 518 452, 495 454 L 388 450 Z" fill="#0d4722"></path>
+
+    <!-- Signature Bold Dark Stripe & Crossbar on Sleeve (Exact match to reference!) -->
+    <polygon points="528,312 548,316 516,422 496,416" fill="#072a16"></polygon>
+    <polygon points="484,376 548,398 542,418 476,396" fill="#072a16"></polygon>
+
+    <!-- Sleeve Cuff Band -->
+    <path d="M 382 424 C 370 436, 372 464, 388 476 L 406 474 C 392 460, 390 436, 400 422 Z" fill="#22c55e" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></path>
+
+    <!-- Foreground Right Hand & Articulated Typing Fingers -->
+    <g class="anim-right-wrist">
+      <!-- Back of Hand & Palm (Pure White with Mint Shadow) -->
+      <path d="M 384 434 C 362 430, 338 434, 322 446 L 342 474 C 358 474, 374 470, 388 466 Z" fill="#ffffff" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></path>
+      <!-- Mint Cel-Shadow on Lower Hand -->
+      <path d="M 336 462 C 354 464, 372 460, 386 454 L 388 466 C 372 472, 354 474, 340 472 Z" fill="#bbf7d0"></path>
+
+      <!-- Thumb (Upper Right of Hand) -->
+      <path d="M 366 434 C 350 428, 332 432, 322 442 C 318 447, 326 453, 334 449 C 344 444, 354 442, 366 444 Z" fill="#ffffff" stroke="#072a16" stroke-width="4" stroke-linejoin="round"></path>
+
+      <!-- Index Finger (Animated Rapid Key Tap) -->
+      <path class="anim-f-index" d="M 346 440 C 326 442, 308 452, 298 464 C 294 470, 303 475, 310 470 C 320 460, 332 454, 348 452 Z" fill="#ffffff" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></path>
+
+      <!-- Middle Finger (Animated Out-of-Phase Key Tap) -->
+      <path class="anim-f-middle" d="M 350 450 C 330 454, 312 464, 304 476 C 300 482, 310 486, 317 480 C 326 470, 338 464, 354 460 Z" fill="#ffffff" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></path>
+
+      <!-- Ring / Pinky Finger (Animated Key Tap) -->
+      <path class="anim-f-pinky" d="M 358 460 C 342 466, 326 475, 318 486 C 315 491, 324 495, 332 489 C 340 481, 350 474, 364 470 Z" fill="#dcfce7" stroke="#072a16" stroke-width="4.5" stroke-linejoin="round"></path>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 9. ERGONOMIC CHAIR BACKREST (Right Foreground)                        -->
+  <!-- ===================================================================== -->
+  <g id="ergonomicChair">
+    <!-- Chair Main Dark Backrest -->
+    <path d="M 632 292 C 668 260, 712 275, 708 345 L 686 598 L 572 598 L 598 380 C 604 338, 614 308, 632 292 Z" fill="#0d4722" stroke="#072a16" stroke-width="5.5" stroke-linejoin="round"></path>
+    <!-- Chair Left 3D Rim Highlight -->
+    <path d="M 632 292 C 614 308, 604 338, 598 380 L 572 598 L 592 598 L 616 385 C 622 342, 632 312, 652 292 C 645 288, 638 288, 632 292 Z" fill="#16a34a" stroke="#072a16" stroke-width="5" stroke-linejoin="round"></path>
+    <!-- Bright Edge Accent -->
+    <path d="M 634 305 C 620 325, 612 355, 606 395 L 584 585" fill="none" stroke="#4ade80" stroke-width="4" stroke-linecap="round" opacity="0.7"></path>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 10. TYPING KEYSPARKS & MOTION LINES (Toggleable Layer)                -->
+  <!-- ===================================================================== -->
+  <g id="layerKeySparks">
+    <!-- Left Hand Keystroke Sparks -->
+    <g class="spark-2" stroke="#072a16" stroke-width="3.5" stroke-linecap="round">
+      <line x1="342" y1="398" x2="334" y2="384"></line>
+      <line x1="356" y1="394" x2="358" y2="378" stroke="#22c55e" stroke-width="4"></line>
+      <line x1="370" y1="397" x2="378" y2="385"></line>
+    </g>
+
+    <!-- Right Hand Keystroke Sparks -->
+    <g class="spark-1" stroke="#072a16" stroke-width="3.5" stroke-linecap="round">
+      <line x1="292" y1="448" x2="278" y2="438" stroke="#16a34a" stroke-width="4"></line>
+      <line x1="304" y1="438" x2="298" y2="422"></line>
+      <line x1="318" y1="436" x2="320" y2="420" stroke="#4ade80" stroke-width="4"></line>
+    </g>
+
+    <!-- Subtle Forearm Motion Lines -->
+    <path d="M 432 492 L 478 495" stroke="#22c55e" stroke-width="3.5" stroke-linecap="round" class="spark-1"></path>
+    <path d="M 455 366 L 488 356" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round" class="spark-2"></path>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 11. GROUNDING DESK BASELINE & FLOOR SURFACE (Prevents cut-off display!)-->
+  <!-- ===================================================================== -->
+  <g id="groundingDeskLine">
+    <!-- Under-Desk Floor Surface / 3D Bevel with Mint Tint -->
+    <polygon points="100,598 760,598 735,614 125,614" fill="#bbf7d0" stroke="#072a16" stroke-width="4" stroke-linejoin="round"></polygon>
+    <!-- Bold Solid Grounding Line across Desk, Knee & Chair -->
+    <line x1="95" y1="598" x2="765" y2="598" stroke="#072a16" stroke-width="6.5" stroke-linecap="round"></line>
+  </g>
+</svg>
