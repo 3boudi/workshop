@@ -184,11 +184,6 @@ export const SupervisorSection: React.FC<SupervisorSectionProps> = ({
                 <ShieldCheck className="w-3.5 h-3.5 text-neon" />
                 <span>GDGC BATNA 2</span>
               </div>
-
-              {/* Interactive Hover / Tap Hint */}
-              <div className="absolute top-2 right-2 z-20 px-2.5 py-0.5 rounded-full bg-white/95 backdrop-blur-sm border border-forest/20 text-[10px] font-black text-forest-darkest shadow-xs opacity-85 group-hover:opacity-100 transition-opacity">
-                {isColorActive ? 'Active' : 'Hover / Tap'}
-              </div>
             </div>
           </div>
 
@@ -272,7 +267,7 @@ export const SupervisorSection: React.FC<SupervisorSectionProps> = ({
 
               {/* LinkedIn */}
               <a 
-                href="https://www.linkedin.com/" 
+                href="https://www.linkedin.com/in/halitim-amin-845664300/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border-2 border-forest text-forest-darkest text-xs sm:text-sm font-black shadow-brutal-sm hover:bg-neon hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 group min-h-[40px]"
@@ -284,7 +279,7 @@ export const SupervisorSection: React.FC<SupervisorSectionProps> = ({
 
               {/* GitHub */}
               <a 
-                href="https://github.com/" 
+                href="https://github.com/3boudi" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border-2 border-forest text-forest-darkest text-xs sm:text-sm font-black shadow-brutal-sm hover:bg-neon hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 group min-h-[40px]"
@@ -296,7 +291,7 @@ export const SupervisorSection: React.FC<SupervisorSectionProps> = ({
 
               {/* Email */}
               <a 
-                href="mailto:contact@gdgcbatna2.com" 
+                href="mailto:halitim.amin@univ-guelma.dz" 
                 className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border-2 border-forest text-forest-darkest text-xs sm:text-sm font-black shadow-brutal-sm hover:bg-neon hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 group min-h-[40px]"
                 aria-label="Send Email"
               >
